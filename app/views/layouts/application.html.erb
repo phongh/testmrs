@@ -1,0 +1,71 @@
+<%
+	title ||= 'OpenMRS'
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title><%= title || 'No Title' %></title>
+		<%= stylesheet_link_tag 'openmrs',
+			'jquery-ui-1.8.2.custom',
+			'datatables_jui' %>
+		<%= javascript_include_tag 'jquery-1.4.2.min.js',
+			'jquery-ui-1.8.2.custom.min.js',
+			'jquery.dataTables.min.js',
+			'fisheye.js',
+			'iutil.js' %>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#patient-search-button').click(function() {
+					$('#patient-search').dialog('open');
+				});
+				$('#patient-search').dialog({
+					modal: true,
+					autoOpen: false,
+					draggable: false,
+					title: 'Find a patient',
+					width: '80%',
+					height: '600'
+				});
+				$('#dock').Fisheye({
+					maxWidth: 32,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container',
+					itemWidth: 32,
+					proximity: 32,
+					alignment: 'left',
+					valign: 'top',
+					halign: 'left'
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<div id="header">
+				<div id="dock">
+					<div class="dock-container">
+						<a class="dock-item" href="/">
+							<img src="/images/openmrs-logo-64.png"/>
+							<span>Home</span>
+						</a>
+						<a class="dock-item" id="patient-search-button">
+							<img src="/images/search-64.png"/> 
+							<span>Find patient</span>
+						</a>
+					</div>
+				</div>
+				
+				<div id="patient-search" style="display:none">
+					<%= render :partial => "widgets/patient_search" %>
+				</div>
+			
+				OpenMRS on Rails via JRuby!
+			</div>
+			<div id="content">
+				<%= yield %>
+			</div>
+		</div>
+	</body>
+</html>

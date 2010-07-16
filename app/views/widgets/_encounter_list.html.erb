@@ -1,0 +1,32 @@
+<% id ||= random_dom_id %>
+<table id="<%= id %>" class="display">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Location</th>
+      <th>Type</th>
+      <th>Provider</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% encounters.each do |enc| %>
+      <tr>
+	<td><%= format_date enc.encounter_datetime %></td>
+	<td><%= enc.location %></td>
+	<td><%= enc.encounter_type.name %></td>
+	<td><%= enc.provider.person_name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('#<%= id %>').dataTable({
+          "bLengthChange": false,
+          "bInfo": false,
+          "sPaginationType": "full_numbers",
+          "bJQueryUI": true
+      });
+  });
+</script>

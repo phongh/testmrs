@@ -1,0 +1,2 @@
+module OpenmrsHelper
+end

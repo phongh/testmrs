@@ -1,0 +1,19 @@
+<%
+	id ||= random_dom_id
+	url ||= "/patient/view/"
+%>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#<%= id %>_query').autocomplete({
+			source: "/query/find_patient",
+			minLength: 3,
+			select: function(event, ui) {
+				window.location = '<%= url %>' + ui.item.value;
+			}
+		});
+	});
+</script>
+
+ID or Name:
+<input id="<%= id %>_query" type="text" size="40">

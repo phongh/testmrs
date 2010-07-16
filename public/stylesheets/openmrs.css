@@ -1,0 +1,40 @@
+.container {
+}
+
+#header {
+    text-align: center;
+    color: white;
+    background: #880000;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 0.3em;
+}
+
+#dock {
+	float: left
+}
+.dock-container {
+	position: absolute;
+	top: 0px;
+	height: 50px;
+	padding-left: 20px;
+}
+a.dock-item {
+	display: block;
+	width: 50px;
+	position: absolute;
+	top: 0;
+	text-align: center;
+	text-decoration: none;
+	color: #333;
+}  
+.dock-item span {
+	display: none;
+	padding-left: 20px;
+	font-weight: bold;
+}  
+.dock-item img {
+	border: 0;
+	margin: 5px 10px 0px;
+	width: 100%;
+} 

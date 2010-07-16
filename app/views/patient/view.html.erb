@@ -1,0 +1,30 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+      $("#tabs").tabs();
+  });
+</script>
+
+<h1>
+  <%= @patient.person_name.family_name.upcase %>, <%= @patient.person_name.given_name %>
+</h1>
+<h3>
+  <%= @patient.patient_identifier.identifier_type.name %>: <%= @patient.patient_identifier.identifier %>
+</h3>
+
+<div id="tabs">
+
+  <ul>
+    <li><a href="#tabs-1">Demographics</a></li>
+    <li><a href="#tabs-2">Encounters</a></li>
+  </ul>
+
+  <div id="tabs-1">
+    Something here
+  </div>
+
+  <div id="tabs-2">
+    <%= render :partial => "widgets/encounter_list",
+        :locals => { :encounters => @encounters } %>
+  </div>
+
+</div>
