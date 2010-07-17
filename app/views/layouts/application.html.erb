@@ -12,8 +12,7 @@
 		<%= javascript_include_tag 'jquery-1.4.2.min.js',
 			'jquery-ui-1.8.2.custom.min.js',
 			'jquery.dataTables.min.js',
-			'fisheye.js',
-			'iutil.js' %>
+			'jquery.jqDock.min.js' %>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$('#patient-search-button').click(function() {
@@ -27,6 +26,26 @@
 					width: '80%',
 					height: '600'
 				});
+				$('#menu-dock').jqDock({
+					align: 'top',
+					size: 32,
+					labels: true
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<div id="header">
+				<div id="menu-dock-container">
+					<div id="menu-dock">
+						<a href="/">
+							<img src="/images/openmrs-logo-64.png" title="Home"/>
+						</a>
+						<img src="/images/search-64.png" id="patient-search-button" title="Find patient"/> 
+					</div>
+				</div>
+				<!--
 				$('#dock').Fisheye({
 					maxWidth: 32,
 					items: 'a',
@@ -38,12 +57,7 @@
 					valign: 'top',
 					halign: 'left'
 				});
-			});
-		</script>
-	</head>
-	<body>
-		<div class="container">
-			<div id="header">
+
 				<div id="dock">
 					<div class="dock-container">
 						<a class="dock-item" href="/">
@@ -56,6 +70,7 @@
 						</a>
 					</div>
 				</div>
+				-->
 				
 				<div id="patient-search" style="display:none">
 					<%= render :partial => "widgets/patient_search" %>
