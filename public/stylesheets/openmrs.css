@@ -27,31 +27,23 @@
 	-moz-border-radius: 10px;
 }
 
-#dock {
-	float: left
-}
-.dock-container {
-	position: absolute;
-	top: 0px;
-	height: 50px;
-	padding-left: 20px;
-}
-a.dock-item {
-	display: block;
-	width: 50px;
-	position: absolute;
-	top: 0;
-	text-align: center;
-	text-decoration: none;
-	color: #333;
-}  
-.dock-item span {
-	display: none;
-	padding-left: 20px;
+.person-name {
 	font-weight: bold;
-}  
-.dock-item img {
-	border: 0;
-	margin: 5px 10px 0px;
-	width: 100%;
-} 
+}
+
+.metadata {
+	font-family: sans-serif;
+	color: #004400;
+}
+
+.data {
+	color: #000044;
+}
+
+.label {
+	font-size: small;
+}
+
+.value {
+	font-weight: bold;
+}

@@ -11,10 +11,10 @@
   <tbody>
     <% encounters.each do |enc| %>
       <tr>
-	<td><%= format_date enc.encounter_datetime %></td>
-	<td><%= enc.location %></td>
-	<td><%= enc.encounter_type.name %></td>
-	<td><%= enc.provider.person_name %></td>
+	<td><%= format enc.encounter_datetime %></td>
+	<td><%= format enc.location %></td>
+	<td><%= format enc.encounter_type %></td>
+	<td><%= format enc.provider %></td>
       </tr>
     <% end %>
   </tbody>

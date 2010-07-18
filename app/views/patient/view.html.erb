@@ -5,10 +5,10 @@
 </script>
 
 <h1>
-  <%= @patient.person_name.family_name.upcase %>, <%= @patient.person_name.given_name %>
+  <%= format @patient %>
 </h1>
 <h3>
-  <%= @patient.patient_identifier.identifier_type.name %>: <%= @patient.patient_identifier.identifier %>
+  <%= format @patient.patient_identifier %>
 </h3>
 
 <div id="tabs">
