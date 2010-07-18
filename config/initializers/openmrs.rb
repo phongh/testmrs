@@ -9,7 +9,7 @@ def setup_openmrs_classpath
     "lib/java/commons-collections/commons-collections-3.2.jar",
     "lib/java/commons-fileupload/commons-fileupload-1.1.1.jar",
     "lib/java/slf4j/slf4j-api-1.5.6.jar",
-    #"lib/java/slf4j/slf4j-log4j12-1.5.6.jar",
+    "lib/java/slf4j/slf4j-log4j12-1.5.6.jar",
     "lib/java/slf4j/jcl-over-slf4j-1.5.6.jar",
     "lib/java/commons-pool/commons-pool-1.2.jar",
     "lib/java/dom4j/dom4j-1.6.1.jar",
@@ -83,6 +83,13 @@ def setup_openmrs_classpath
   ].each do |jar|
     require "#{jar}"
   end
+  
+  #trying to get log4j to work right (and giving up)
+  #java_import "org.apache.commons.logging.LogFactory"
+  #clazz = Java::org.springframework.context.support.ClassPathXmlApplicationContext
+  #logger = LogFactory.getLog(clazz.java_class)
+  #puts "It should say Here! after this"
+  #logger.warn("Here!")
 end
 
 def import_openmrs_classes
@@ -135,7 +142,7 @@ def load_java_properties filename
   return props
 end
 
-def startup_openmrs runtime_properties
+def startup_openmrs_web runtime_properties
   puts "Starting up OpenMRS..."
   puts "    (connection.url = #{runtime_properties['connection.url']})"
 
@@ -162,6 +169,19 @@ def startup_openmrs runtime_properties
   puts "OpenMRS started."
 end
 
+def startup_openmrs_standalone runtime_properties
+  puts "Starting up OpenMRS..."
+  puts "    (connection.url = #{runtime_properties['connection.url']})"
+  
+  puts "Calling Context.startup"
+  @@o.startup runtime_properties['connection.url'], runtime_properties['connection.username'], runtime_properties['connection.password'], runtime_properties
+
+  puts "Opening an OpenMRS Session"  
+  @@o.open_session
+  
+  puts "OpenMRS started."
+end
+
 setup_openmrs_classpath
 
 import_openmrs_classes
@@ -173,4 +193,4 @@ if props.nil?
   raise SystemExit.new
 end
 
-startup_openmrs props
+startup_openmrs_standalone props # need to get startup_openmrs_web working
