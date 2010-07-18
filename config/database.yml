@@ -5,7 +5,7 @@ development:
   encoding: utf8
   database: rubyapp_development
   username: openmrs
-  password: openmrs
+  password: <%= begin IO.read("/home/djazayeri/.dbpassword") rescue "openmrs" end %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
