@@ -19,8 +19,10 @@
 			'<img src="images/openmrs-logo-64.png"/>'
 		end
 		def title(item)
-			puts "Item is #{item}"
 			format item
+		end
+		def caption(item)
+			item.age
 		end
 		def description(item)
 			ret = ""

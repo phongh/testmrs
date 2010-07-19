@@ -3,7 +3,7 @@
 development:
   adapter: jdbcmysql
   encoding: utf8
-  database: rubyapp_development
+  database: openmrs
   username: openmrs
   password: <%= begin IO.read("/home/djazayeri/.dbpassword") rescue "openmrs" end %>
 
