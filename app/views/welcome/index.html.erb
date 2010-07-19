@@ -1,0 +1,6 @@
+<!-- Just include the header for now -->
+
+<br/>
+
+<%= render :partial => "widgets/patient_panel",
+        :locals => { :title => "Patients named Darius" , :patients => $omrs.patient_service.getPatients("darius") } %>

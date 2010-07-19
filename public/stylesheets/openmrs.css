@@ -1,3 +1,6 @@
+/* this isn't dark enough by default */
+.ui-widget-overlay { background: #333333 url(images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x; opacity: .50;filter:Alpha(Opacity=50); }
+
 .container {
 }
 
@@ -46,4 +49,45 @@
 
 .value {
 	font-weight: bold;
+}
+
+.vertical-panel {
+}
+
+.vertical-panel-item {
+	cursor: pointer;
+	padding: 0.5em;
+}
+
+.vertical-panel-item-even {
+	background-color: #e0e0e0;
+}
+
+.vertical-panel-item-icon {
+	float: left;
+	background-color: white;
+	border: 1px #cccccc solid;
+	padding: 0.1em;
+	margin-right: 0.1em;
+}
+
+.vertical-panel-item-title {
+	font-weight: bold;
+	font-size: 1.1em;
+}
+
+.vertical-panel-item-caption {
+	float: right;
+}
+
+.vertical-panel-item-description {
+	font-size: 0.9em;
+}
+
+.vertical-panel-item-footer {
+	clear: both;
+}
+
+.number-of-results {
+	font-style: italic;
 }

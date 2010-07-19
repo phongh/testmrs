@@ -9,6 +9,7 @@ module ApplicationHelper
   def format(obj, opts = {})
     return "" if obj.nil?
     return format_person_name obj.person_name, opts if obj.java_kind_of? Java::org.openmrs.Person
+    return format_person_name obj, opts if obj.java_kind_of? Java::org.openmrs.PersonName
     return format_identifier obj, opts if obj.java_kind_of? Java::org.openmrs.PatientIdentifier
     return format_metadata obj, opts if obj.java_kind_of? Java::org.openmrs.Location
     return format_metadata obj, opts if obj.java_kind_of? Java::org.openmrs.EncounterType
@@ -31,6 +32,21 @@ module ApplicationHelper
 
   def random_dom_id #for example for use on a div
     "id#{rand(10000)}"
+  end
+  
+  def safe_for_wire(obj)
+    return "" if obj.nil?
+    if obj.java_kind_of? Java::org.openmrs.Patient
+      {
+        :patient_id => obj.patient_id,
+        :age => obj.age,
+        :gender => obj.gender,
+        :person_name => format(obj.person_name),
+        :identifiers => obj.active_identifiers.collect { |i| format(i) }
+      }
+    else
+      "Unhandled class: #{obj.java_class}"
+    end
   end
 
 end

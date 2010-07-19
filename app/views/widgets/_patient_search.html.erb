@@ -1,19 +1,67 @@
 <%
 	id ||= random_dom_id
-	url ||= "/patient/view/"
+	
+	patient_search_opts = nil
+	class <<patient_search_opts
+		include ApplicationHelper
+		def search_url
+			"/patient/find"
+		end
+		def click_url(item)
+			"/patient/view/#{item.patient_id}"
+		end
+		def icon(item)
+			'<img src="/images/openmrs-logo-64.png"/>'
+		end
+		def title(item)
+			format item
+		end
+		def caption(item)
+			item.age
+		end
+	end
 %>
 
 <script type="text/javascript">
+	var options = {
+		clickUrl: function(rowNum, item) {
+			return "/patient/view/" + item.patient_id;
+		},
+		icon: function(rowNum, item) {
+			return '<img src="/images/' + (item.gender == 'M' ? 'male' : 'female') + '.png"/>';
+		},
+		title: function(rowNum, item) {
+			return item.person_name;
+		},
+		caption: function(rowNum, item) {
+			return item.age;
+		},
+		description: function(rowNum, item) {
+			var ret = '';
+			for (var i = 0; i < item.identifiers.length; ++i)
+				ret += item.identifiers[i] + '<br/>';
+			return ret;
+		}
+	};
+
 	$(document).ready(function() {
-		$('#<%= id %>_query').autocomplete({
-			source: "/query/find_patient",
-			minLength: 3,
-			select: function(event, ui) {
-				window.location = '<%= url %>' + ui.item.value;
-			}
-		});
+		$('#<%= id %>_form').submit(function() {
+			$.getJSON("<%= patient_search_opts.search_url %>",
+					{ query: $('#<%= id %>_query').val() },
+					<%= id %>_results_results_callback(options)
+			);
+			return false;
+		})
 	});
 </script>
 
-ID or Name:
-<input id="<%= id %>_query" type="text" size="40">
+<form id="<%= id %>_form">
+	ID or Name:
+	<input id="<%= id %>_query" type="text" size="40"/>
+	<input type="submit" id="<%= id %>_button" value="Search"/>
+</form>
+
+<br/>
+
+<%= render :partial => "widgets/vertical_panel",
+        :locals => { :id => "#{id}_results", :options => patient_search_opts } %>

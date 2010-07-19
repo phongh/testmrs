@@ -1,0 +1,34 @@
+<%
+	# params:
+	# * title: if provided, make this a widget with the given title
+	# * patients: (a list of org.openmrs.Patient): initially display those
+	
+	id ||= random_dom_id
+	title ||= ''
+	
+	patient_list_opts = nil
+	class <<patient_list_opts
+		include ApplicationHelper
+		def search_url
+			"/patient/find/"
+		end
+		def click_url(item)
+			"/patient/view/#{item.patient_id}"
+		end
+		def icon(item)
+			'<img src="images/openmrs-logo-64.png"/>'
+		end
+		def title(item)
+			puts "Item is #{item}"
+			format item
+		end
+		def description(item)
+			ret = ""
+			item.identifiers.each { |ident| ret << "#{format ident}<br/>" }
+			ret  
+		end
+	end
+%>
+
+<%= render :partial => "widgets/vertical_panel",
+		:locals => { :title => title, :items => patients , :options => patient_list_opts } %>

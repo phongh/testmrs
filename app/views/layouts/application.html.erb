@@ -6,9 +6,9 @@
 <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title><%= title || 'No Title' %></title>
-		<%= stylesheet_link_tag 'openmrs',
-			'jquery-ui-1.8.2.custom',
-			'datatables_jui' %>
+		<%= stylesheet_link_tag 'jquery-ui-1.8.2.custom',
+			'datatables_jui',
+			'openmrs' %>
 		<%= javascript_include_tag 'jquery-1.4.2.min.js',
 			'jquery-ui-1.8.2.custom.min.js',
 			'jquery.dataTables.min.js',
@@ -45,32 +45,6 @@
 						<img src="/images/search-64.png" id="patient-search-button" title="Find patient"/> 
 					</div>
 				</div>
-				<!--
-				$('#dock').Fisheye({
-					maxWidth: 32,
-					items: 'a',
-					itemsText: 'span',
-					container: '.dock-container',
-					itemWidth: 32,
-					proximity: 32,
-					alignment: 'left',
-					valign: 'top',
-					halign: 'left'
-				});
-
-				<div id="dock">
-					<div class="dock-container">
-						<a class="dock-item" href="/">
-							<img src="/images/openmrs-logo-64.png"/>
-							<span>Home</span>
-						</a>
-						<a class="dock-item" id="patient-search-button">
-							<img src="/images/search-64.png"/> 
-							<span>Find patient</span>
-						</a>
-					</div>
-				</div>
-				-->
 				
 				<div id="patient-search" style="display:none">
 					<%= render :partial => "widgets/patient_search" %>

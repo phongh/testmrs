@@ -1,0 +1,92 @@
+<%
+	# A vertical panel, for example for holding search results. Each item is wide, and relatively verbose
+	#
+	# -params-
+	# * title: if this is provided, the whole panel will be wrapped in a widget with this title 
+	# * items: items to display initially
+	# * options: controls how the panel is initially populated 
+
+	has_title = defined? title && title != ''
+	id ||= random_dom_id
+%>
+
+<script type="text/javascript">
+	function <%= id %>_results_callback(jsoptions) {
+		return function(data) {
+			var content = $('#<%= id %>_content');
+			content.html('');
+			content.append('<span class="number-of-results">' + data.length + ' result(s)</span>');
+			$.each(data, function(rowNum) {
+				var ret = '<div class="vertical-panel-item"';
+				var url = jsoptions.clickUrl(rowNum, this);
+				if (url != null) {
+					ret += ' onClick="window.location = \'' + url + '\';"';
+				}
+				ret += '>';
+				ret += '<div class="vertical-panel-item-icon">';
+				ret += jsoptions.icon(rowNum, this);
+				ret += '</div>';
+				ret += '<div class="vertical-panel-item-title">';
+				ret += jsoptions.title(rowNum, this);
+				ret += '</div>';
+				ret += '<div class="vertical-panel-item-caption">';
+				ret += jsoptions.caption(rowNum, this);
+				ret += '</div>';
+				ret += '<div class="vertical-panel-item-description">';
+				ret += jsoptions.description(rowNum, this);
+				ret += '</div>';
+				ret += '<div class="vertical-panel-item-footer"></div>';
+				ret += '</div>';
+				content.append(ret);
+			});
+			<%= id %>_color_rows();
+		}
+	}
+	
+	function <%= id %>_color_rows() {
+		$('#<%= id %> .vertical-panel-item:even').addClass('vertical-panel-item-even');
+	}
+
+	$(document).ready(function() {
+		<%= id %>_color_rows();
+	});
+</script>
+
+<div id="<%= id %>" class="vertical-panel<%= has_title ? " ui-widget" : ""  %>">
+<% if has_title %>
+	<div class="ui-widget-header ui-corner-tl ui-corner-tr"><%= title %></div>
+<% end %>
+
+<div id="<%= id %>_content"
+	<% if has_title %>class="ui-widget-content ui-corner-bl ui-corner-br"<% end %>
+>
+<% if (defined? items) then items.each do |item| %>
+	<%
+		icon = options.icon item
+		title = options.title item
+		caption = options.caption item
+		description = options.description item
+		click_url = options.click_url item
+	%>
+	<div class="vertical-panel-item"
+		<% if click_url != '' %>
+			onClick="window.location = '<%= click_url %>'"
+		<% end %>
+	>
+		<div class="vertical-panel-item-icon">
+			<%= icon %>
+		</div>
+		<div class="vertical-panel-item-title">
+			<%= title %>
+		</div>
+		<div class="vertical-panel-item-caption">
+			<%= caption %>
+		</div>
+		<div class="vertical-panel-item-description">
+			<%= description %>
+		</div>
+		<div class="vertical-panel-item-footer"></div>
+	</div>
+<% end end %>
+</div>
+</div>

@@ -107,7 +107,7 @@ def import_openmrs_classes
     java_import "org.openmrs.#{clazz}"
   end
   
-  @@o = Context # o is a shortcut for the OpenMRS Context
+  $omrs = Context # o is a shortcut for the OpenMRS Context
 end
 
 def get_runtime_properties
@@ -150,13 +150,13 @@ def startup_openmrs_web runtime_properties
   ctx = Java::org.springframework.context.support.ClassPathXmlApplicationContext.new "applicationContext-service.xml"
 
   puts "Opening an OpenMRS Session"  
-  @@o.open_session
+  $omrs.open_session
 
   # load_bundled_module ??
   
   puts "Calling Context.startup"
   begin
-    @@o.startup runtime_properties
+    $omrs.startup runtime_properties
   rescue => e
     puts "The error was a #{e.class} and it says #{e}"
     i = 0;
@@ -174,10 +174,10 @@ def startup_openmrs_standalone runtime_properties
   puts "    (connection.url = #{runtime_properties['connection.url']})"
   
   puts "Calling Context.startup"
-  @@o.startup runtime_properties['connection.url'], runtime_properties['connection.username'], runtime_properties['connection.password'], runtime_properties
+  $omrs.startup runtime_properties['connection.url'], runtime_properties['connection.username'], runtime_properties['connection.password'], runtime_properties
 
   puts "Opening an OpenMRS Session"  
-  @@o.open_session
+  $omrs.open_session
   
   puts "OpenMRS started."
 end
