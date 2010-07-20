@@ -60,6 +60,9 @@
 <div id="<%= id %>_content"
 	<% if has_title %>class="ui-widget-content ui-corner-bl ui-corner-br"<% end %>
 >
+<% if ((defined? items) && (items.size == 0)) %>
+	None
+<% end %>
 <% if (defined? items) then items.each do |item| %>
 	<%
 		icon = options.icon item

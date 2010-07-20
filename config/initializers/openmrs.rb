@@ -194,3 +194,13 @@ if props.nil?
 end
 
 startup_openmrs_standalone props # need to get startup_openmrs_web working
+
+
+
+def get_patient_list patient_ids
+  map = {}
+  $omrs.patient_set_service.getPatients(patient_ids.collect {|id| java.lang.Integer.new(id) }).each do |pt|
+    map[pt.patient_id] = pt
+  end
+  patient_ids.collect {|id| map[id]}
+end

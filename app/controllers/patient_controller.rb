@@ -7,6 +7,8 @@ class PatientController < ApplicationController
       raise "No patient found!"
     end
     @encounters = Context.encounterService.getEncountersByPatient(@patient)
+    # record that this user viewed this patient
+    PatientViewed.record_view($omrs.authenticated_user, @patient)
   end
   
   def find

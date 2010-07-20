@@ -16,7 +16,7 @@
 			"/patient/view/#{item.patient_id}"
 		end
 		def icon(item)
-			'<img src="images/openmrs-logo-64.png"/>'
+			"<img src=\"/images/#{ item.gender == 'M' ? 'male' : 'female' }.png\"/>";
 		end
 		def title(item)
 			format item

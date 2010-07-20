@@ -3,4 +3,9 @@
 <br/>
 
 <%= render :partial => "widgets/patient_panel",
+        :locals => { :title => "Recently-Viewed" , :patients => @recently_viewed } %>
+
+<br/>
+
+<%= render :partial => "widgets/patient_panel",
         :locals => { :title => "Patients named Darius" , :patients => $omrs.patient_service.getPatients("darius") } %>

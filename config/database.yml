@@ -1,11 +1,30 @@
 # SQLite version 3.x
 #   gem install sqlite3-ruby (not necessary on OS X Leopard)
 development:
+<%
+db = "openmrs"
+user = "openmrs"
+pass = "openmrs"
+begin
+	props = Java::java.util.Properties.new
+	props = Java::java.util.Properties.new
+	props.load Java::java.io.InputStreamReader.new(Java::java.io.FileInputStream.new("#{File.expand_path "~/.OpenMRS/openmrs-runtime.properties"}"), "UTF-8")
+	temp = props["connection.url"]
+	ind1 = (temp =~ /3306/) + 5
+	ind2 = temp =~ /\?/
+	db = temp[ind1, ind2 - ind1]
+	user = props["connection.username"]
+	pass = props["connection.password"]
+#rescue
+	# do nothing
+end
+%>
   adapter: jdbcmysql
   encoding: utf8
-  database: openmrs
-  username: openmrs
-  password: <%= begin IO.read("/home/djazayeri/.dbpassword") rescue "openmrs" end %>
+  database: <%= db %>
+  username: <%= user %>
+  password: <%= pass %>
+  		# begin IO.read("/home/djazayeri/.dbpassword") rescue "openmrs" end
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
